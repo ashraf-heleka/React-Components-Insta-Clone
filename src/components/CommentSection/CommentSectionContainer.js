@@ -1,18 +1,29 @@
-// You will add code to this file
-import React, { useState } from "react";
-import CommentInput from "./CommentInput";
-import Comment from "./Comment";
-import "./Comment.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Comment from './Comment';
+import CommentInput from './CommentInput';
 
-const CommentSection = props => {
-  // Add state for the comments
+class CommentSection extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      comments: props.comments
+    };
+  }
+  render() {
+    return (
+      <div>
+        {this.state.comments.map((c, i) => <Comment key={i} comment={c} />)}
+        <CommentInput />
+      </div>
+    );
+  }
+}
 
-  return (
-    <div>
-      {/* map through the comments data and return the Comment component */}
-      <CommentInput />
-    </div>
-  );
+CommentSection.propTypes = {
+  comments: PropTypes.arrayOf(
+    PropTypes.shape({ text: PropTypes.string, username: PropTypes.string })
+  )
 };
 
 export default CommentSection;
